@@ -1,0 +1,19 @@
+# App name
+app.name = My First Play
+
+#Title
+page.title = Registro de laboratorios
+
+# Flash Scope
+flash.success = success
+flash.error = error
+
+#Params
+userid=UserId
+firstname = FirstName
+lastname = LastName
+mobile = Mobile
+email = Email
+nombre = Nombre
+administracion = Administración
+ubicacion = Ubicación

@@ -1,0 +1,12 @@
+New log file opened at Mon Mar 21 14:42:14 COT 2016 by 7375@sampedrodesk
+Taking next connection to: 54894
+New client attempting to connect on port: 54607-54894
+  Address = /127.0.1.1:54894
+This client on port 54607 has uuid f0d7c0b4-be71-4f63-85f8-3a172da7f5d3 configName activator humanReadableName Activator protocolVersion 3 featureTags Vector()
+Connected Clients: activator-f0d7c0b4-be71-4f63-85f8-3a172da7f5d3
+Taking next connection to: 54894
+Server socket closed java.net.SocketException: Socket closed
+Server socket thread exiting.
+1 clients open, will close them...
+All client sockets have been closed.
+Closing the 7375@sampedrodesk logs at Mon Mar 21 14:42:20 COT 2016, goodbye.

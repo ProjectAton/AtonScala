@@ -1,0 +1,37 @@
+@import model.UsuarioWeb
+@import model.RolUsuario
+@(usuario: Option[UsuarioWeb], rol: Option[RolUsuario], titulo: String)(contenido: Html)
+<html>
+    <head>
+        <title>@titulo - Aton Web</title>
+            <!-- Librerías webjar -->
+            <!-- Bootstrap -->
+        <script data-main="@routes.Assets.at("javascripts/main.js")" type="text/javascript" src="@routes.Assets.at("lib/bootstrap/bootstrap.js")"></script>
+            <!-- jQuery -->
+        <script data-main="@routes.Assets.at("javascripts/main.js")" type="text/javascript" src="@routes.Assets.at("lib/jquery/jquery.js")"></script>
+
+            <!-- Script básico para la página -->
+        <script type="text/javascript" src="@routes.Assets.at("javascripts/general.js")"></script>
+
+            <!-- Estilos generales -->
+        <link rel="stylesheet" type="text/css" href="@routes.Assets.at("stylesheets/global.css")"/>
+        <link rel="shortcut icon" href="@routes.Assets.at("images/favicon.ico")"/>
+
+            <!-- Flaticon -->
+        <link rel="stylesheet" type="text/css" href="@routes.Assets.at("stylesheets/flaticon.css")"/>
+
+        <meta name="viewport"
+        content="width=device-width, initial-scale:1.0, user-scale=0" />
+    </head>
+
+
+    <body>
+        <div class="wrapper">
+            @header(usuario)
+            <div id="container">
+                @menu("admin".equalsIgnoreCase(rol.getOrElse(RolUsuario(0,"")).rol))
+                <div class="content">@contenido</div>
+            </div>
+        </div>
+    </body>
+</html>
