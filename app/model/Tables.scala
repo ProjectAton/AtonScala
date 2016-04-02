@@ -8,12 +8,12 @@ import slick.driver.MySQLDriver.api._
 import slick.lifted.{ForeignKeyQuery, ProvenShape}
 
 /**
-  * == Laboratorio de la base de datos ==
+  * == Laboratory de la base de datos ==
   *
   * @param tag nombre de la tabla
   */
 class Laboratorio1(tag: Tag)
-  extends Table[(Long, String, String, String)](tag, "Laboratorio") {
+  extends Table[(Long, String, String, String)](tag, "Laboratory") {
 
   // Todas las tablas necesitan el método * con el tipo con el que fue creada la tabla
   def * : ProvenShape[(Long, String, String, String)] =
@@ -31,12 +31,12 @@ class Laboratorio1(tag: Tag)
 }
 
 /**
-  * == Sala de la base de datos ==
+  * == Room de la base de datos ==
   *
   * @param tag nombre de la tabla
   */
 class Sala1(tag: Tag)
-  extends Table[(Long, String, String, String, Long)](tag, "Sala") {
+  extends Table[(Long, String, String, String, Long)](tag, "Room") {
 
   def * : ProvenShape[(Long, String, String, String, Long)] =
     (id, nombre, mediosaudiovisuales, enseres, idLaboratorio)
@@ -51,7 +51,7 @@ class Sala1(tag: Tag)
 
   def enseres = column[String]("sala_enseres")
 
-  // Clave foránea hacia Laboratorio
+  // Clave foránea hacia Laboratory
   def laboratorio: ForeignKeyQuery[Laboratorio1, (Long, String, String, String)] =
     foreignKey("sala_laboratorio_id", idLaboratorio, TableQuery[Laboratorio1])(_.id)
 
@@ -59,12 +59,12 @@ class Sala1(tag: Tag)
 }
 
 /**
-  * == Equipo de la base de datos ==
+  * == Computer de la base de datos ==
   *
   * @param tag nombre de la tabla
   */
 class Equipo1(tag: Tag)
-  extends Table[(String, String, String, String, String, Long)](tag, "Equipo") {
+  extends Table[(String, String, String, String, String, Long)](tag, "Computer") {
 
   def * : ProvenShape[(String, String, String, String, String, Long)] =
     (ip, mac, usuarioSSH, passwordSSH, descripcion, idSala)
@@ -83,7 +83,7 @@ class Equipo1(tag: Tag)
 
   def idSala = column[Long]("equipo_sala_id")
 
-  // Clave foránea hacia Laboratorio
+  // Clave foránea hacia Laboratory
   def sala: ForeignKeyQuery[Sala1, (Long, String, String, String, Long)] =
     foreignKey("equipo_sala_id", idSala, TableQuery[Sala1])(_.id)
 }

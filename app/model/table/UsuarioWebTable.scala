@@ -17,8 +17,8 @@ class UsuarioWebTable(tag: Tag) extends Table[UsuarioWeb](tag, "UsuarioWeb") {
   // Otras columnas/atributos
   def password = column[String]("usuarioweb_password")
 
-  // Clave foránea hacia RolUsuario
-  def rolUsuario = foreignKey("usuarioweb_rolusuario_fk", idRolUsuario, TableQuery[RolUsuarioTable])(_.id)
+  // Clave foránea hacia UserRole
+  def rolUsuario = foreignKey("usuarioweb_rolusuario_fk", idRolUsuario, TableQuery[UserRoleTable])(_.id)
 
   def idRolUsuario = column[Long]("usuarioweb_rolusuario_id")
 

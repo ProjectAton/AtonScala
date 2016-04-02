@@ -12,10 +12,10 @@ GET     /message                    controllers.AsyncController.message
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
 
-# Laboratorio
-GET     /laboratorios/              controllers.LaboratorioController.listAll
-POST    /laboratorios/add           controllers.LaboratorioController.addLaboratorio
-GET     /laboratorios/delete/:id    controllers.LaboratorioController.deleteLaboratorio(id:Long)
+# Laboratory
+GET        /laboratorios/           controllers.LaboratoryController.listAll
+POST        /laboratorios/add        controllers.LaboratoryController.addLaboratorio
+GET        /laboratorios/delete/:id        controllers.LaboratoryController.deleteLaboratorio(id:Long)
 
 # SECURE SOCIAL
 # Login page

@@ -1,9 +1,9 @@
-@import model.{Equipo, Laboratorio, Sala}
+@import model.{Computer, Laboratory, Room}
 
 @import scala.collection.immutable.HashMap
-@(laboratorio: Laboratorio, salasConEquipos: Option[HashMap[Sala, Set[Equipo]]])
+@(laboratorio: Laboratory, salasConEquipos: Option[HashMap[Room, Set[Computer]]])
 
-<h1>Laboratorio</h1>
+<h1>Laboratory</h1>
 @if(salasConEquipos.isDefined) {
     @for(salaConEquipos <- salasConEquipos.get) {
 
