@@ -1,6 +1,6 @@
 package model.table
 
-import model.{RolUsuario, UsuarioWeb}
+import model.UsuarioWeb
 import slick.driver.MySQLDriver.api._
 import slick.lifted.ProvenShape
 
@@ -17,10 +17,10 @@ class UsuarioWebTable(tag: Tag) extends Table[UsuarioWeb](tag, "UsuarioWeb") {
   // Otras columnas/atributos
   def password = column[String]("usuarioweb_password")
 
-  def idRolUsuario = column[Long]("usuarioweb_rolusuario_id")
-
   // Clave foránea hacia RolUsuario
   def rolUsuario = foreignKey("usuarioweb_rolusuario_fk", idRolUsuario, TableQuery[RolUsuarioTable])(_.id)
+
+  def idRolUsuario = column[Long]("usuarioweb_rolusuario_id")
 
   // Todas las tablas necesitan el método * con el tipo con el que fue creada la tabla
   override def * : ProvenShape[UsuarioWeb] =

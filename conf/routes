@@ -12,10 +12,29 @@ GET     /message                    controllers.AsyncController.message
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
 
-# Login
-GET     /login                      controllers.SecurityController.login
-
 # Laboratorio
 GET     /laboratorios/              controllers.LaboratorioController.listAll
 POST    /laboratorios/add           controllers.LaboratorioController.addLaboratorio
 GET     /laboratorios/delete/:id    controllers.LaboratorioController.deleteLaboratorio(id:Long)
+
+# SECURE SOCIAL
+# Login page
+GET        /login                   securesocial.controllers.LoginPage.login
+GET        /logout                  securesocial.controllers.LoginPage.logout
+
+# User Registration and password handling
+GET        /signup                  securesocial.controllers.Registration.startSignUp
+POST        /signup                 securesocial.controllers.Registration.handleStartSignUp
+GET        /signup/:token           securesocial.controllers.Registration.signUp(token)
+POST        /signup/:token          securesocial.controllers.Registration.handleSignUp(token)
+GET        /reset                   securesocial.controllers.Registration.startResetPassword
+POST        /reset                  securesocial.controllers.Registration.handleStartResetPassword
+GET        /reset/:token            securesocial.controllers.Registration.resetPassword(token)
+POST        /reset/:token           securesocial.controllers.Registration.handleResetPassword(token)
+GET        /password                securesocial.controllers.PasswordChange.page
+POST        /password               securesocial.controllers.PasswordChange.handlePasswordChange
+
+# Providers entry points
+GET        /authenticate/:provider        securesocial.controllers.ProviderController.authenticate(provider)
+POST        /authenticate/:provider        securesocial.controllers.ProviderController.authenticateByPost(provider)
+GET        /not-authorized        securesocial.controllers.ProviderController.notAuthorized

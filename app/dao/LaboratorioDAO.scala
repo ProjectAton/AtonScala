@@ -2,8 +2,9 @@ package dao
 
 import com.google.inject.ImplementedBy
 import dao.impl.LaboratorioDAOImpl
-import model.Laboratorio
+import model.{Equipo, Laboratorio, Sala}
 
+import scala.collection.immutable.HashMap
 import scala.concurrent.Future
 
 /**
@@ -13,6 +14,15 @@ import scala.concurrent.Future
   */
 @ImplementedBy(classOf[LaboratorioDAOImpl])
 trait LaboratorioDAO {
+
+  /**
+    * Obtiene el laboratorio con todos las salas y PC asociadas
+    *
+    * @param id
+    * @return
+    */
+  def getWithChildren(id: Long): Future[(Option[Laboratorio], Option[HashMap[Sala, Set[Equipo]]])]
+
 
   /**
     * Adiciona un laboratorio

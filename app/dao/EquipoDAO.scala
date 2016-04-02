@@ -2,8 +2,11 @@ package dao
 
 import com.google.inject.ImplementedBy
 import dao.impl.EquipoDAOImpl
-import model.Equipo
+import model.table.SalaTable
+import model.{Equipo, Sala}
+import slick.lifted.TableQuery
 
+import scala.collection.immutable.HashMap
 import scala.concurrent.Future
 
 /**
@@ -13,6 +16,15 @@ import scala.concurrent.Future
   */
 @ImplementedBy(classOf[EquipoDAOImpl])
 trait EquipoDAO {
+
+  /**
+    * Hace un join interno en el cual se buscan los equipos de las salas
+    *
+    * @param salasEncontradas
+    * @param salas
+    * @return
+    */
+  def buscarEquiposPorSalas(salasEncontradas: Future[Seq[Sala]], salas: TableQuery[SalaTable]): Option[HashMap[Sala, Equipo]]
 
   /**
     * Adiciona un inicio

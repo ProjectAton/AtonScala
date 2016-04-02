@@ -19,6 +19,10 @@ libraryDependencies += "com.typesafe.play" % "play-slick-evolutions_2.11" % "2.0
 libraryDependencies += "org.slf4j" % "slf4j-api" % "1.7.10"
 libraryDependencies += "mysql" % "mysql-connector-java" % "5.1.38"
 
+// Login
+libraryDependencies += "ws.securesocial" % "securesocial_2.11" % "3.0-M4"
+
+
 // Webjars (Javascript)
 libraryDependencies ++= Seq(
   "org.webjars" % "bootstrap" % "3.3.6",
@@ -27,6 +31,9 @@ libraryDependencies ++= Seq(
 
 
 resolvers += "scalaz-bintray" at "http://dl.bintray.com/scalaz/releases"
+
+// Login
+resolvers += Resolver.sonatypeRepo("releases")
 
 
 fork in run := true

@@ -3,13 +3,14 @@ package dao.impl
 import javax.inject.Inject
 
 import com.google.inject.Singleton
-import dao.SalaDAO
-import model.Sala
+import dao.{EquipoDAO, SalaDAO}
 import model.table.SalaTable
+import model.{Equipo, Sala}
 import play.api.db.slick.DatabaseConfigProvider
 import play.api.libs.concurrent.Execution.Implicits._
 import slick.driver.JdbcProfile
 
+import scala.collection.immutable.HashMap
 import scala.concurrent.Future
 
 /**
@@ -20,7 +21,7 @@ import scala.concurrent.Future
   */
 @Singleton
 class SalaDAOImpl @Inject()
-(dbConfigProvider: DatabaseConfigProvider) extends SalaDAO {
+(dbConfigProvider: DatabaseConfigProvider, equipoDAO: EquipoDAO) extends SalaDAO {
   /**
     * Configuración de la base de datos
     */
@@ -69,6 +70,8 @@ class SalaDAOImpl @Inject()
     db.run(search(id).delete)
   }
 
+  private def search(id: Long) = salas.filter(_.id === id)
+
   /**
     * Lista todas los salas en la base de datos
     *
@@ -78,6 +81,14 @@ class SalaDAOImpl @Inject()
     db.run(salas.result)
   }
 
-  private def search(id: Long) = salas.filter(_.id === id)
+  /**
+    * Obtiene todas las salas que coinciden con el id de laboratorio
+    *
+    * @param id
+    */
+  override def getSalasPorLaboratorio(id: Long): Option[HashMap[Sala, Equipo]] = {
+    val salasEncontradas: Future[Seq[Sala]] = db.run(salas.filter(_.idLaboratorio === id).result)
+    equipoDAO.buscarEquiposPorSalas(salasEncontradas, salas)
+  }
 }
 

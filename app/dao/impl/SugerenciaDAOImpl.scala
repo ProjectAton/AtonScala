@@ -54,6 +54,8 @@ class SugerenciaDAOImpl @Inject()
     db.run(search(id).result.headOption)
   }
 
+  private def search(id: Long) = sugerencias.filter(_.id === id)
+
   /**
     * Elimina un sugerencia de la base de datos
     *
@@ -72,6 +74,4 @@ class SugerenciaDAOImpl @Inject()
   override def listAll: Future[Seq[Sugerencia]] = {
     db.run(sugerencias.result)
   }
-
-  private def search(id: Long) = sugerencias.filter(_.id === id)
 }

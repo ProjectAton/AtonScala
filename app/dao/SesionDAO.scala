@@ -1,7 +1,6 @@
 package dao
 
 import java.sql.Timestamp
-import java.util.Date
 
 import com.google.inject.ImplementedBy
 import dao.impl.SesionDAOImpl

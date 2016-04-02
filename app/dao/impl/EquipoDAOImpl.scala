@@ -4,12 +4,13 @@ import javax.inject.Inject
 
 import com.google.inject.Singleton
 import dao.EquipoDAO
-import model.Equipo
-import model.table.EquipoTable
-import play.api.db.slick.DatabaseConfigProvider
+import model.table.{EquipoTable, SalaTable}
+import model.{Equipo, Sala}
+import play.api.db.slick.{DatabaseConfigProvider, HasDatabaseConfigProvider}
 import play.api.libs.concurrent.Execution.Implicits._
 import slick.driver.JdbcProfile
 
+import scala.collection.immutable.HashMap
 import scala.concurrent.Future
 
 /**
@@ -20,23 +21,17 @@ import scala.concurrent.Future
   */
 @Singleton
 class EquipoDAOImpl @Inject()
-(dbConfigProvider: DatabaseConfigProvider, salaDAOImpl: SalaDAOImpl) extends EquipoDAO {
+(protected val dbConfigProvider: DatabaseConfigProvider, salaDAOImpl: SalaDAOImpl) extends EquipoDAO with HasDatabaseConfigProvider[JdbcProfile] {
 
-  /**
-    * Configuración de la base de datos
-    */
-  val dbConfig = dbConfigProvider.get[JdbcProfile]
-
-  import dbConfig._
   import driver.api._
 
   /**
-    * Tabla con "todos los equipos", similar a select * from inicio
+    * Tabla con "todos los equipos", similar a select * from equipo
     */
   implicit val equipos = TableQuery[EquipoTable]
 
   /**
-    * Adiciona un inicio
+    * Adiciona un equipo
     *
     * @param equipo Equipo a agregar
     * @return String con el mensaje del resultado
@@ -49,20 +44,22 @@ class EquipoDAOImpl @Inject()
   }
 
   /**
-    * Obtiene un inicio según el id
+    * Obtiene un equipo según el id
     *
-    * @param ip Dirección IP del inicio
+    * @param ip Dirección IP del equipo
     * @return Equipo encontrado o None si no se encontró
     */
   override def get(ip: String): Future[Option[Equipo]] = {
-    // Se realiza un select * from inicio where id = $id
+    // Se realiza un select * from equipo where id = $id
     db.run(search(ip).result.headOption)
   }
 
+  private def search(ip: String) = equipos.filter(_.ip === ip)
+
   /**
-    * Elimina un inicio de la base de datos
+    * Elimina un equipo de la base de datos
     *
-    * @param ip Dirección IP del inicio
+    * @param ip Dirección IP del equipo
     * @return Resultado de la operación
     */
   override def delete(ip: String): Future[Int] = {
@@ -78,6 +75,20 @@ class EquipoDAOImpl @Inject()
     db.run(equipos.result)
   }
 
-  private def search(ip: String) = equipos.filter(_.ip === ip)
+  /**
+    * Hace un join interno en el cual se buscan los equipos de las salas
+    *
+    * @param salasEncontradas
+    * @param salas
+    * @return
+    */
+  override def buscarEquiposPorSalas(salasEncontradas: Future[Seq[Sala]], salas: TableQuery[SalaTable]): Option[HashMap[Sala, Equipo]] = {
+    for {
+      sala <- salasEncontradas
+      equipo <- equipos join salas
+    } ()
+  }
+
+
 }
 

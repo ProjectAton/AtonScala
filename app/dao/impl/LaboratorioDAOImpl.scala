@@ -3,15 +3,15 @@ package dao.impl
 import javax.inject.Inject
 
 import com.google.inject.Singleton
-import dao.LaboratorioDAO
-import model.Laboratorio
+import dao.{LaboratorioDAO, SalaDAO}
 import model.table.LaboratorioTable
+import model.{Equipo, Laboratorio, Sala}
 import play.Logger
 import play.api.db.slick.DatabaseConfigProvider
 import play.api.libs.concurrent.Execution.Implicits._
 import slick.driver.JdbcProfile
-import slick.lifted.ProvenShape
 
+import scala.collection.immutable.HashMap
 import scala.concurrent.Future
 
 /**
@@ -22,7 +22,7 @@ import scala.concurrent.Future
   */
 @Singleton
 class LaboratorioDAOImpl @Inject()
-(dbConfigProvider: DatabaseConfigProvider) extends LaboratorioDAO {
+(dbConfigProvider: DatabaseConfigProvider, salaDAO: SalaDAO) extends LaboratorioDAO {
   /**
     * Configuración de la base de datos
     */
@@ -56,17 +56,6 @@ class LaboratorioDAOImpl @Inject()
   }
 
   /**
-    * Obtiene un laboratorio según el id
-    *
-    * @param id Identificador del laboratorio
-    * @return Laboratorio encontrado o None si no se encontró
-    */
-  override def get(id: Long): Future[Option[Laboratorio]] = {
-    // Se realiza un select * from laboratorio where id = $id
-    db.run(search(id).result.headOption)
-  }
-
-  /**
     * Elimina un laboratorio de la base de datos
     *
     * @param id Identificador del laboratorio
@@ -83,6 +72,29 @@ class LaboratorioDAOImpl @Inject()
     */
   override def listAll: Future[Seq[Laboratorio]] = {
     db.run(laboratorios.result)
+  }
+
+  /**
+    * Obtiene el laboratorio con todos las salas y PC asociadas
+    *
+    * @param id
+    * @return
+    */
+  override def getWithChildren(id: Long): Future[(Option[Laboratorio], Option[HashMap[Sala, Set[Equipo]]])] = {
+    val laboratorio = get(id)
+    val salas = salaDAO.getSalasPorLaboratorio(id)
+    (laboratorio, salas)
+  }
+
+  /**
+    * Obtiene un laboratorio según el id
+    *
+    * @param id Identificador del laboratorio
+    * @return Laboratorio encontrado o None si no se encontró
+    */
+  override def get(id: Long): Future[Option[Laboratorio]] = {
+    // Se realiza un select * from laboratorio where id = $id
+    db.run(search(id).result.headOption)
   }
 
   private def search(id: Long) = laboratorios.filter(_.id === id)

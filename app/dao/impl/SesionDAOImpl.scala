@@ -1,7 +1,6 @@
 package dao.impl
 
 import java.sql.Timestamp
-import java.util.Date
 import javax.inject.Inject
 
 import com.google.inject.Singleton
@@ -57,6 +56,8 @@ class SesionDAOImpl @Inject()
     db.run(search(ip, fecha).result.headOption)
   }
 
+  private def search(ip: String, fecha: Timestamp) = sesions.filter(a => a.ipEquipo === ip && a.fecha == fecha)
+
   /**
     * Elimina un sesion de la base de datos
     *
@@ -76,6 +77,4 @@ class SesionDAOImpl @Inject()
   override def listAll: Future[Seq[Sesion]] = {
     db.run(sesions.result)
   }
-
-  private def search(ip: String, fecha: Timestamp) = sesions.filter(a => a.ipEquipo === ip && a.fecha == fecha)
 }

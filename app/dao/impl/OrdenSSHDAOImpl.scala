@@ -59,6 +59,8 @@ class OrdenSSHDAOImpl @Inject()
     db.run(search(id).result.headOption)
   }
 
+  private def search(id: Long) = ordenesSSH.filter(_.id === id)
+
   /**
     * Elimina un ordenSSH de la base de datos
     *
@@ -77,6 +79,4 @@ class OrdenSSHDAOImpl @Inject()
   override def listAll: Future[Seq[OrdenSSH]] = {
     db.run(ordenesSSH.result)
   }
-
-  private def search(id: Long) = ordenesSSH.filter(_.id === id)
 }

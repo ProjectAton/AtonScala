@@ -15,6 +15,10 @@ import slick.lifted.{ForeignKeyQuery, ProvenShape}
 class Laboratorio1(tag: Tag)
   extends Table[(Long, String, String, String)](tag, "Laboratorio") {
 
+  // Todas las tablas necesitan el método * con el tipo con el que fue creada la tabla
+  def * : ProvenShape[(Long, String, String, String)] =
+    (id, nombre, ubicacion, administracion)
+
   // Clave primaria
   def id = column[Long]("laboratorio_id", O.PrimaryKey)
 
@@ -24,10 +28,6 @@ class Laboratorio1(tag: Tag)
   def ubicacion = column[String]("laboratorio_ubicacion")
 
   def administracion = column[String]("laboratorio_administracion")
-
-  // Todas las tablas necesitan el método * con el tipo con el que fue creada la tabla
-  def * : ProvenShape[(Long, String, String, String)] =
-    (id, nombre, ubicacion, administracion)
 }
 
 /**
@@ -37,6 +37,9 @@ class Laboratorio1(tag: Tag)
   */
 class Sala1(tag: Tag)
   extends Table[(Long, String, String, String, Long)](tag, "Sala") {
+
+  def * : ProvenShape[(Long, String, String, String, Long)] =
+    (id, nombre, mediosaudiovisuales, enseres, idLaboratorio)
 
   // Clave primaria
   def id = column[Long]("sala_id", O.PrimaryKey)
@@ -48,15 +51,11 @@ class Sala1(tag: Tag)
 
   def enseres = column[String]("sala_enseres")
 
-  def idLaboratorio = column[Long]("sala_laboratorio_id")
-
-
-  def * : ProvenShape[(Long, String, String, String, Long)] =
-    (id, nombre, mediosaudiovisuales, enseres, idLaboratorio)
-
   // Clave foránea hacia Laboratorio
   def laboratorio: ForeignKeyQuery[Laboratorio1, (Long, String, String, String)] =
     foreignKey("sala_laboratorio_id", idLaboratorio, TableQuery[Laboratorio1])(_.id)
+
+  def idLaboratorio = column[Long]("sala_laboratorio_id")
 }
 
 /**
@@ -66,6 +65,9 @@ class Sala1(tag: Tag)
   */
 class Equipo1(tag: Tag)
   extends Table[(String, String, String, String, String, Long)](tag, "Equipo") {
+
+  def * : ProvenShape[(String, String, String, String, String, Long)] =
+    (ip, mac, usuarioSSH, passwordSSH, descripcion, idSala)
 
   // Clave primaria
   def ip = column[String]("equipo_ip", O.PrimaryKey)
@@ -80,9 +82,6 @@ class Equipo1(tag: Tag)
   def descripcion = column[String]("equipo_descripcion")
 
   def idSala = column[Long]("equipo_sala_id")
-
-  def * : ProvenShape[(String, String, String, String, String, Long)] =
-    (ip, mac, usuarioSSH, passwordSSH, descripcion, idSala)
 
   // Clave foránea hacia Laboratorio
   def sala: ForeignKeyQuery[Sala1, (Long, String, String, String, Long)] =

@@ -1,7 +1,6 @@
 package dao.impl
 
 import java.sql.Timestamp
-import java.util.Date
 import javax.inject.Inject
 
 import com.google.inject.Singleton
@@ -57,6 +56,8 @@ class EstadoDAOImpl @Inject()
     db.run(search(ip, fecha).result.headOption)
   }
 
+  private def search(ip: String, fecha: Timestamp) = estados.filter(a => a.ipEquipo === ip && a.fecha == fecha)
+
   /**
     * Elimina un estado de la base de datos
     *
@@ -76,6 +77,4 @@ class EstadoDAOImpl @Inject()
   override def listAll: Future[Seq[Estado]] = {
     db.run(estados.result)
   }
-
-  private def search(ip: String, fecha: Timestamp) = estados.filter(a => a.ipEquipo === ip && a.fecha == fecha)
 }

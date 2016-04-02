@@ -2,8 +2,9 @@ package dao
 
 import com.google.inject.ImplementedBy
 import dao.impl.SalaDAOImpl
-import model.Sala
+import model.{Equipo, Sala}
 
+import scala.collection.immutable.HashMap
 import scala.concurrent.Future
 
 /**
@@ -13,6 +14,14 @@ import scala.concurrent.Future
   */
 @ImplementedBy(classOf[SalaDAOImpl])
 trait SalaDAO {
+
+  /**
+    * Obtiene todas las salas que coinciden con el id de laboratorio
+    *
+    * @param id
+    */
+  def getSalasPorLaboratorio(id: Long): Option[HashMap[Sala, Set[Equipo]]]
+
 
   /**
     * Adiciona una sala

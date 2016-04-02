@@ -11,11 +11,18 @@ import slick.lifted.{ForeignKeyQuery, ProvenShape}
   */
 class EquipoTable(tag: Tag) extends Table[Equipo](tag, "Equipo") {
 
-  // Clave primaria
-  def ip = column[String]("equipo_ip", O.PrimaryKey)
-
   // Otras columnas/atributos
   def nombre = column[String]("equipo_nombre")
+
+  // Clave foránea hacia Sala
+  def sala: ForeignKeyQuery[SalaTable, Sala] = foreignKey("equipo_sala_id", idSala, TableQuery[SalaTable])(_.id)
+
+  // Todas las tablas necesitan el método * con el tipo con el que fue creada la tabla
+  override def * : ProvenShape[Equipo] =
+    (ip, mac, usuarioSSH, passwordSSH, descripcion, idSala) <>(Equipo.tupled, Equipo.unapply)
+
+  // Clave primaria
+  def ip = column[String]("equipo_ip", O.PrimaryKey)
 
   def mac = column[String]("equipo_mac")
 
@@ -26,11 +33,4 @@ class EquipoTable(tag: Tag) extends Table[Equipo](tag, "Equipo") {
   def descripcion = column[String]("equipo_descripcion")
 
   def idSala = column[Long]("equipo_sala_id")
-
-  // Clave foránea hacia Sala
-  def sala: ForeignKeyQuery[SalaTable, Sala] = foreignKey("equipo_sala_id", idSala, TableQuery[SalaTable])(_.id)
-
-  // Todas las tablas necesitan el método * con el tipo con el que fue creada la tabla
-  override def * : ProvenShape[Equipo] =
-    (ip, mac, usuarioSSH, passwordSSH, descripcion, idSala) <>(Equipo.tupled, Equipo.unapply)
 }
