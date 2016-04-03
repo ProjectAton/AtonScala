@@ -35,7 +35,7 @@ class SessionDAOImpl @Inject()
     * Adiciona un sesion
     *
     * @param sesion Session a agregar
-    * @return String con el mensaje del resultado
+    * @return String con el mensaje del result
     */
   override def add(sesion: Session): Future[String] = {
     // Se realiza un insert y por cada insert se crea un String

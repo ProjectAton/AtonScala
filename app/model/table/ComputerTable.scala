@@ -5,32 +5,32 @@ import slick.driver.MySQLDriver.api._
 import slick.lifted.{ForeignKeyQuery, ProvenShape}
 
 /**
-  * Mapeo de la tabla Computer con Slick
+  * Computer table map with Slick
   *
   * @param tag
   */
-class ComputerTable(tag: Tag) extends Table[Computer](tag, "Computer") {
+class ComputerTable(tag: Tag) extends Table[Computer](tag, "computer") {
 
-  // Otras columnas/atributos
-  def nombre = column[String]("equipo_nombre")
+  // Other columns/attributes
+  def name = column[String]("computer_name")
 
-  // Clave foránea hacia Room
-  def sala: ForeignKeyQuery[RoomTable, Room] = foreignKey("equipo_sala_id", idSala, TableQuery[RoomTable])(_.id)
+  // Room foreign key
+  def room: ForeignKeyQuery[RoomTable, Room] = foreignKey("computer_room_id", roomId, TableQuery[RoomTable])(_.id)
 
-  // Todas las tablas necesitan el método * con el tipo con el que fue creada la tabla
+  // All tables need the * method with the type that it was created the table.
   override def * : ProvenShape[Computer] =
-    (ip, mac, usuarioSSH, passwordSSH, descripcion, idSala) <>(Computer.tupled, Computer.unapply)
+    (ip, mac, SSHUser, SSHPassword, description, roomId) <>(Computer.tupled, Computer.unapply)
 
-  // Clave primaria
-  def ip = column[String]("equipo_ip", O.PrimaryKey)
+  // PrimaryKey
+  def ip = column[String]("computer_ip", O.PrimaryKey)
 
-  def mac = column[String]("equipo_mac")
+  def mac = column[String]("computer_mac")
 
-  def usuarioSSH = column[String]("equipo_usuario_ssh")
+  def SSHUser = column[String]("computer_ssh_user")
 
-  def passwordSSH = column[String]("equipo_password_ssh")
+  def SSHPassword = column[String]("computer_ssh_password")
 
-  def descripcion = column[String]("equipo_descripcion")
+  def description = column[String]("computer_description")
 
-  def idSala = column[Long]("equipo_sala_id")
+  def roomId = column[Long]("computer_room_id")
 }

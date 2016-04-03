@@ -1,6 +1,10 @@
 package model
 
 /**
-  * POJO con la información básica de ComputerState (Utilizada por el DAO, Service y Controller de estado)
+  * POJO with the basic Computer State information (Used by the ComputerState DAO, Service and Controller)
   */
-case class ComputerState(ipEquipo: String, fecha: java.sql.Timestamp, descripcion: String)
+case class ComputerState(
+                          computerIp: String,
+                          registeredDate: java.sql.Timestamp,
+                          description: String
+                        )

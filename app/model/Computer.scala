@@ -1,6 +1,14 @@
 package model
 
 /**
-  * POJO con la información básica de Computer (Utilizada por el DAO, Service y Controller de inicio)
+  * POJO with the basic Computer information (Used by the Computer DAO, Service and Controller)
   */
-case class Computer(ip: String, nombre: String, mac: String, usuarioSSH: String, passwordSSH: String, descripcion: String, idSala: Long)
+case class Computer(
+                     ip: String,
+                     name: String,
+                     mac: String,
+                     SSHUser: String,
+                     SSHPassword: String,
+                     description: String,
+                     roomID: Long
+                   )

@@ -20,7 +20,7 @@ trait SessionDAO {
     * Adiciona una sesion
     *
     * @param sesion Session a agregar
-    * @return String con el mensaje del resultado
+    * @return String con el mensaje del result
     */
   def add(sesion: Session): Future[String]
 

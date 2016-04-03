@@ -10,14 +10,14 @@ import slick.driver.MySQLDriver.api._
   */
 class SSHOrderTable(tag: Tag) extends Table[SSHOrder](tag, "SSHOrder") {
 
-  // Todas las tablas necesitan el método * con el tipo con el que fue creada la tabla
+  // All tables need the * method with the type that it was created the table with.
   override def * =
     (id, sudo, interrumpir, ordenSSH, resultado, codigoSalida) <>(SSHOrder.tupled, SSHOrder.unapply)
 
-  // Clave primaria
+  // Primary key
   def id = column[Long]("orden_id", O.PrimaryKey, O.AutoInc)
 
-  // Otras columnas/atributos
+  // Other columns/attributes
   def sudo = column[Boolean]("orden_sudo")
 
   def interrumpir = column[Boolean]("orden_ubicacion")

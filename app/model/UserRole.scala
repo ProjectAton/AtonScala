@@ -1,6 +1,9 @@
 package model
 
 /**
-  * Created by camilo on 22/03/16.
+  * POJO with the basic User Role information (Used by the User Role DAO, Service and Controller)
   */
-case class UserRole(id: Int, rol: String)
+case class UserRole(
+                     id: Int,
+                     role: String
+                   )

@@ -11,14 +11,14 @@ import slick.lifted.ProvenShape
   */
 class LaboratoryTable(tag: Tag) extends Table[Laboratory](tag, "Laboratory") {
 
-  // Todas las tablas necesitan el método * con el tipo con el que fue creada la tabla
+  // All tables need the * method with the type that it was created the table with.
   override def * : ProvenShape[Laboratory] =
     (id, nombre, ubicacion, administracion) <>(Laboratory.tupled, Laboratory.unapply)
 
-  // Clave primaria
+  // Primary key
   def id = column[Long]("laboratorio_id", O.PrimaryKey, O.AutoInc)
 
-  // Otras columnas/atributos
+  // Other columns/attributes
   def nombre = column[String]("laboratorio_nombre")
 
   def ubicacion = column[String]("laboratorio_ubicacion")

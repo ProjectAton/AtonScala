@@ -28,7 +28,7 @@ trait LaboratoryDAO {
     * Adiciona un laboratorio
     *
     * @param laboratorio Laboratory a agregar
-    * @return String con el mensaje del resultado
+    * @return String con el mensaje del result
     */
   def add(laboratorio: Laboratory): Future[String]
 

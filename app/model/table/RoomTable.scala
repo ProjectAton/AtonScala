@@ -14,14 +14,14 @@ class RoomTable(tag: Tag) extends Table[Room](tag, "Room") {
   // Clave foránea hacia Laboratory
   def laboratorio = foreignKey("sala_laboratorio_id", idLaboratorio, TableQuery[LaboratoryTable])(_.id)
 
-  // Todas las tablas necesitan el método * con el tipo con el que fue creada la tabla
+  // All tables need the * method with the type that it was created the table with.
   override def * : ProvenShape[Room] =
     (id, nombre, mediosaudiovisuales, enseres, idLaboratorio) <>(Room.tupled, Room.unapply)
 
-  // Clave primaria
+  // Primary key
   def id = column[Long]("sala_id", O.PrimaryKey)
 
-  // Otras columnas/atributos
+  // Other columns/attributes
   def nombre = column[String]("sala_nombre")
 
   def mediosaudiovisuales = column[String]("sala_mediosaudiovisuales")

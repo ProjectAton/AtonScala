@@ -1,6 +1,11 @@
 package model
 
 /**
-  * POJO con la información básica de Session (Utilizada por el DAO, Service y Controller de sesion)
+  * POJO with the basic Session information (Used by the Session DAO, Service and Controller)
   */
-case class Session(ipEquipo: String, fecha: java.sql.Timestamp, usuarioConectado: String, activa: Boolean)
+case class Session(
+                    computerIp: String,
+                    connectionTime: java.sql.Timestamp,
+                    connectedUser: String,
+                    active: Boolean
+                  )

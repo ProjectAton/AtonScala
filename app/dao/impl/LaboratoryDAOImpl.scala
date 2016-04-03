@@ -42,7 +42,7 @@ class LaboratoryDAOImpl @Inject()
     * Adiciona un laboratorio
     *
     * @param laboratorio Laboratory a agregar
-    * @return String con el mensaje del resultado
+    * @return String con el mensaje del result
     */
   override def add(laboratorio: Laboratory): Future[String] = {
     // Se realiza un insert y por cada insert se crea un String
@@ -64,8 +64,6 @@ class LaboratoryDAOImpl @Inject()
   override def delete(id: Long): Future[Int] = {
     db.run(search(id).delete)
   }
-
-  private def search(id: Long) = laboratorios.filter(_.id === id)
 
   /**
     * Lista todas los laboratorios en la base de datos
@@ -98,4 +96,6 @@ class LaboratoryDAOImpl @Inject()
     // Se realiza un select * from laboratorio where id = $id
     db.run(search(id).result.headOption)
   }
+
+  private def search(id: Long) = laboratorios.filter(_.id === id)
 }

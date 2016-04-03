@@ -18,14 +18,14 @@ trait SSHOrderDAO {
     * Adiciona una orden SSH
     *
     * @param ordenSSH SSHOrder a agregar
-    * @return String con el mensaje del resultado
+    * @return String con el mensaje del result
     */
   def add(ordenSSH: SSHOrder): Future[String]
 
   /**
     * Obtiene una orden SSH según el id
     *
-    * @param id Identificador del ordenSSH
+    * @param id Identificador del SSHOrder
     * @return SSHOrder encontrado o None si no se encontró
     */
   def get(id: Long): Future[Option[SSHOrder]]
@@ -33,7 +33,7 @@ trait SSHOrderDAO {
   /**
     * Elimina una orden SSH de la base de datos
     *
-    * @param id Identificador del ordenSSH
+    * @param id Identificador del SSHOrder
     * @return Resultado de la operación
     */
   def delete(id: Long): Future[Int]

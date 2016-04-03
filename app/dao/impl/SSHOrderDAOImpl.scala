@@ -31,7 +31,7 @@ class SSHOrderDAOImpl @Inject()
 
 
   /**
-    * Tabla con "todas las ordenes SSH", similar a select * from ordenSSH
+    * Tabla con "todas las ordenes SSH", similar a select * from SSHOrder
     */
   implicit val ordenesSSH = TableQuery[SSHOrderTable]
 
@@ -39,7 +39,7 @@ class SSHOrderDAOImpl @Inject()
     * Adiciona una orden SSH
     *
     * @param ordenSSH SSHOrder a agregar
-    * @return String con el mensaje del resultado
+    * @return String con el mensaje del result
     */
   override def add(ordenSSH: SSHOrder): Future[String] = {
     // Se realiza un insert y por cada insert se crea un String
@@ -49,22 +49,22 @@ class SSHOrderDAOImpl @Inject()
   }
 
   /**
-    * Obtiene un ordenSSH según el id
+    * Obtiene un SSHOrder según el id
     *
-    * @param id Identificador del ordenSSH
+    * @param id Identificador del SSHOrder
     * @return SSHOrder encontrado o None si no se encontró
     */
   override def get(id: Long): Future[Option[SSHOrder]] = {
-    // Se realiza un select * from ordenSSH where id = $id
+    // Se realiza un select * from SSHOrder where id = $id
     db.run(search(id).result.headOption)
   }
 
   private def search(id: Long) = ordenesSSH.filter(_.id === id)
 
   /**
-    * Elimina un ordenSSH de la base de datos
+    * Elimina un SSHOrder de la base de datos
     *
-    * @param id Identificador del ordenSSH
+    * @param id Identificador del SSHOrder
     * @return Resultado de la operación
     */
   override def delete(id: Long): Future[Int] = {

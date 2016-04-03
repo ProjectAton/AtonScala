@@ -26,15 +26,15 @@ class ComputerDAOImpl @Inject()
   import driver.api._
 
   /**
-    * Tabla con "todos los equipos", similar a select * from equipo
+    * Tabla con "todos los equipos", similar a select * from computer
     */
   implicit val equipos = TableQuery[ComputerTable]
 
   /**
-    * Adiciona un equipo
+    * Adiciona un computer
     *
     * @param equipo Computer a agregar
-    * @return String con el mensaje del resultado
+    * @return String con el mensaje del result
     */
   override def add(equipo: Computer): Future[String] = {
     // Se realiza un insert y por cada insert se crea un String
@@ -44,22 +44,22 @@ class ComputerDAOImpl @Inject()
   }
 
   /**
-    * Obtiene un equipo según el id
+    * Obtiene un computer según el id
     *
-    * @param ip Dirección IP del equipo
+    * @param ip Dirección IP del computer
     * @return Computer encontrado o None si no se encontró
     */
   override def get(ip: String): Future[Option[Computer]] = {
-    // Se realiza un select * from equipo where id = $id
+    // Se realiza un select * from computer where id = $id
     db.run(search(ip).result.headOption)
   }
 
   private def search(ip: String) = equipos.filter(_.ip === ip)
 
   /**
-    * Elimina un equipo de la base de datos
+    * Elimina un computer de la base de datos
     *
-    * @param ip Dirección IP del equipo
+    * @param ip Dirección IP del computer
     * @return Resultado de la operación
     */
   override def delete(ip: String): Future[Int] = {

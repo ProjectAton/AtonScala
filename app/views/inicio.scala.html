@@ -29,7 +29,7 @@
         <div class="wrapper">
             @header(usuario)
             <div id="container">
-                @menu("admin".equalsIgnoreCase(rol.getOrElse(UserRole(0, "")).rol))
+                @menu("admin".equalsIgnoreCase(rol.getOrElse(UserRole(0, "")).role))
                 <div class="content">@contenido</div>
             </div>
         </div>

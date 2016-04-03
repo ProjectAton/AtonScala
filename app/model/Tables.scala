@@ -10,19 +10,19 @@ import slick.lifted.{ForeignKeyQuery, ProvenShape}
 /**
   * == Laboratory de la base de datos ==
   *
-  * @param tag nombre de la tabla
+  * @param tag name de la tabla
   */
 class Laboratorio1(tag: Tag)
   extends Table[(Long, String, String, String)](tag, "Laboratory") {
 
-  // Todas las tablas necesitan el método * con el tipo con el que fue creada la tabla
+  // All tables need the * method with the type that it was created the table with.
   def * : ProvenShape[(Long, String, String, String)] =
     (id, nombre, ubicacion, administracion)
 
-  // Clave primaria
+  // Primary key
   def id = column[Long]("laboratorio_id", O.PrimaryKey)
 
-  // Otras columnas/atributos
+  // Other columns/attributes
   def nombre = column[String]("laboratorio_nombre")
 
   def ubicacion = column[String]("laboratorio_ubicacion")
@@ -33,7 +33,7 @@ class Laboratorio1(tag: Tag)
 /**
   * == Room de la base de datos ==
   *
-  * @param tag nombre de la tabla
+  * @param tag name de la tabla
   */
 class Sala1(tag: Tag)
   extends Table[(Long, String, String, String, Long)](tag, "Room") {
@@ -41,10 +41,10 @@ class Sala1(tag: Tag)
   def * : ProvenShape[(Long, String, String, String, Long)] =
     (id, nombre, mediosaudiovisuales, enseres, idLaboratorio)
 
-  // Clave primaria
+  // Primary key
   def id = column[Long]("sala_id", O.PrimaryKey)
 
-  // Otras columnas/atributos
+  // Other columns/attributes
   def nombre = column[String]("sala_nombre")
 
   def mediosaudiovisuales = column[String]("sala_mediosaudiovisuales")
@@ -61,7 +61,7 @@ class Sala1(tag: Tag)
 /**
   * == Computer de la base de datos ==
   *
-  * @param tag nombre de la tabla
+  * @param tag name de la tabla
   */
 class Equipo1(tag: Tag)
   extends Table[(String, String, String, String, String, Long)](tag, "Computer") {
@@ -69,10 +69,10 @@ class Equipo1(tag: Tag)
   def * : ProvenShape[(String, String, String, String, String, Long)] =
     (ip, mac, usuarioSSH, passwordSSH, descripcion, idSala)
 
-  // Clave primaria
+  // Primary key
   def ip = column[String]("equipo_ip", O.PrimaryKey)
 
-  // Otras columnas/atributos
+  // Other columns/attributes
   def mac = column[String]("equipo_mac")
 
   def usuarioSSH = column[String]("equipo_usuario_ssh")

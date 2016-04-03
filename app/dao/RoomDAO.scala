@@ -24,25 +24,25 @@ trait RoomDAO {
 
 
   /**
-    * Adiciona una sala
+    * Adiciona una room
     *
     * @param sala Room a agregar
-    * @return String con el mensaje del resultado
+    * @return String con el mensaje del result
     */
   def add(sala: Room): Future[String]
 
   /**
-    * Obtiene una sala según el id
+    * Obtiene una room según el id
     *
-    * @param id Identificador del sala
+    * @param id Identificador del room
     * @return Room encontrado o None si no se encontró
     */
   def get(id: Long): Future[Option[Room]]
 
   /**
-    * Elimina una sala de la base de datos
+    * Elimina una room de la base de datos
     *
-    * @param id Identificador del sala
+    * @param id Identificador del room
     * @return Resultado de la operación
     */
   def delete(id: Long): Future[Int]

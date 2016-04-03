@@ -11,13 +11,13 @@ import slick.lifted.ProvenShape
   */
 class UserRoleTable(tag: Tag) extends Table[UserRole](tag, "UserRole") {
 
-  // Todas las tablas necesitan el método * con el tipo con el que fue creada la tabla
+  // All tables need the * method with the type that it was created the table with.
   override def * : ProvenShape[UserRole] =
     (id, rol) <>(UserRole.tupled, UserRole.unapply)
 
-  // Clave primaria
+  // Primary key
   def id = column[Long]("rolusuario_id", O.PrimaryKey, O.AutoInc)
 
-  // Otras columnas/atributos
+  // Other columns/attributes
   def rol = column[String]("rolusuario_rol")
 }

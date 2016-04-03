@@ -26,15 +26,15 @@ class SuggestionDAOImpl @Inject()
 
 
   /**
-    * Tabla con "todos los sugerencias", similar a select * from sugerencia
+    * Tabla con "todos los sugerencias", similar a select * from suggestion
     */
   implicit val sugerencias = TableQuery[SuggestionTable]
 
   /**
-    * Adiciona un sugerencia
+    * Adiciona un suggestion
     *
     * @param sugerencia Suggestion a agregar
-    * @return String con el mensaje del resultado
+    * @return String con el mensaje del result
     */
   override def add(sugerencia: Suggestion): Future[String] = {
     // Se realiza un insert y por cada insert se crea un String
@@ -44,27 +44,27 @@ class SuggestionDAOImpl @Inject()
   }
 
   /**
-    * Obtiene un sugerencia según el id
+    * Obtiene un suggestion según el id
     *
-    * @param id Identificador del sugerencia
+    * @param id Identificador del suggestion
     * @return Suggestion encontrado o None si no se encontró
     */
   override def get(id: Long): Future[Option[Suggestion]] = {
-    // Se realiza un select * from sugerencia where id = $id
+    // Se realiza un select * from suggestion where id = $id
     db.run(search(id).result.headOption)
   }
 
-  private def search(id: Long) = sugerencias.filter(_.id === id)
-
   /**
-    * Elimina un sugerencia de la base de datos
+    * Elimina un suggestion de la base de datos
     *
-    * @param id Identificador del sugerencia
+    * @param id Identificador del suggestion
     * @return Resultado de la operación
     */
   override def delete(id: Long): Future[Int] = {
     db.run(search(id).delete)
   }
+
+  private def search(id: Long) = sugerencias.filter(_.id === id)
 
   /**
     * Lista todas los sugerencias en la base de datos

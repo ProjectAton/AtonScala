@@ -20,7 +20,7 @@ trait ComputerStateDAO {
     * Adiciona un estado
     *
     * @param estado ComputerState a agregar
-    * @return String con el mensaje del resultado
+    * @return String con el mensaje del result
     */
   def add(estado: ComputerState): Future[String]
 

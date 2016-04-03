@@ -1,6 +1,10 @@
 package model
 
 /**
-  * POJO con la información básica de Suggestion (Utilizada por el DAO, Service y Controller de sugerencia)
+  * POJO with the basic Suggestion information (Used by the Suggestion DAO, Service and Controller)
   */
-case class Suggestion(id: Long, sugerencia: String, fecha: java.sql.Timestamp)
+case class Suggestion(
+                       id: Long,
+                       suggestion: String,
+                       registeredDate: java.sql.Timestamp
+                     )

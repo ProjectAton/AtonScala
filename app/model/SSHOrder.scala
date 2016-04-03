@@ -1,6 +1,13 @@
 package model
 
 /**
-  * POJO con la información básica de SSHOrder (Utilizada por el DAO, Service y Controller de ordenes ssh)
+  * POJO with the basic SSH Order information (Used by the SSH Order DAO, Service and Controller)
   */
-case class SSHOrder(id: Long, sudo: Boolean, interrumpir: Boolean, ordenSSH: String, resultado: String, codigoSalida: Int)
+case class SSHOrder(
+                     id: Long,
+                     superUser: Boolean,
+                     interrupt: Boolean,
+                     SSHOrder: String,
+                     result: String,
+                     exitCode: Int
+                   )

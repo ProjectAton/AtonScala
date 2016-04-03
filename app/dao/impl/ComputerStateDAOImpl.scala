@@ -35,7 +35,7 @@ class ComputerStateDAOImpl @Inject()
     * Adiciona un estado
     *
     * @param estado ComputerState a agregar
-    * @return String con el mensaje del resultado
+    * @return String con el mensaje del result
     */
   override def add(estado: ComputerState): Future[String] = {
     // Se realiza un insert y por cada insert se crea un String
@@ -56,8 +56,6 @@ class ComputerStateDAOImpl @Inject()
     db.run(search(ip, fecha).result.headOption)
   }
 
-  private def search(ip: String, fecha: Timestamp) = estados.filter(a => a.ipEquipo === ip && a.fecha == fecha)
-
   /**
     * Elimina un estado de la base de datos
     *
@@ -68,6 +66,8 @@ class ComputerStateDAOImpl @Inject()
   override def delete(ip: String, fecha: Timestamp): Future[Int] = {
     db.run(search(ip, fecha).delete)
   }
+
+  private def search(ip: String, fecha: Timestamp) = estados.filter(a => a.computerIp === ip && a.registeredDate == fecha)
 
   /**
     * Lista todas los estados en la base de datos

@@ -8,15 +8,15 @@
     @for(salaConEquipos <- salasConEquipos.get) {
 
         <div class="panel panel-primary">
-            <div class="panel-heading">@salaConEquipos._1.nombre</div>
+            <div class="panel-heading">@salaConEquipos._1.name</div>
             <div class="panel-body">
             @if(!salaConEquipos._2.isEmpty) {
                 <div class="row">
                 @for(equipo <- salaConEquipos._2) {
                     <div class="col-xs-2 panel-inicio">
                         <div class="panel panel-success">
-                            @if(equipo.nombre != "") {
-                                <div class="panel-heading flaticon-robot28">@equipo.nombre</div>
+                            @if(equipo.name != "") {
+                                <div class="panel-heading flaticon-robot28">@equipo.name</div>
                             } else {
                                 <div class="panel-heading flaticon-robot28">@equipo.ip</div>
                             }

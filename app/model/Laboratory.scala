@@ -1,6 +1,11 @@
 package model
 
 /**
-  * POJO con la información básica de Laboratory (Utilizada por el DAO, Service y Controller de laboratorio)
+  * POJO with the basic Laboratory information (Used by the Laboratory DAO, Service and Controller)
   */
-case class Laboratory(id: Long, nombre: String, ubicacion: String, administracion: String)
+case class Laboratory(
+                       id: Long,
+                       name: String,
+                       ubication: String,
+                       administration: String
+                     )
