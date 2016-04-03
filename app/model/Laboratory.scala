@@ -6,6 +6,6 @@ package model
 case class Laboratory(
                        id: Long,
                        name: String,
-                       ubication: String,
+                       location: String,
                        administration: String
                      )

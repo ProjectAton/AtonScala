@@ -16,7 +16,7 @@ import scala.concurrent.Future
 trait RoomDAO {
 
   /**
-    * Obtiene todas las salas que coinciden con el id de laboratorio
+    * Obtiene todas las salas que coinciden con el id de laboratory
     *
     * @param id
     */

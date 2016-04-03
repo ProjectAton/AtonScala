@@ -56,8 +56,6 @@ class SessionDAOImpl @Inject()
     db.run(search(ip, fecha).result.headOption)
   }
 
-  private def search(ip: String, fecha: Timestamp) = sesions.filter(a => a.ipEquipo === ip && a.fecha == fecha)
-
   /**
     * Elimina un sesion de la base de datos
     *
@@ -68,6 +66,8 @@ class SessionDAOImpl @Inject()
   override def delete(ip: String, fecha: Timestamp): Future[Int] = {
     db.run(search(ip, fecha).delete)
   }
+
+  private def search(ip: String, fecha: Timestamp) = sesions.filter(a => a.computerIp === ip && a.connectionTime == fecha)
 
   /**
     * Lista todas los sesions en la base de datos

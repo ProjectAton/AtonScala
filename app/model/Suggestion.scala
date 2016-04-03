@@ -5,6 +5,6 @@ package model
   */
 case class Suggestion(
                        id: Long,
-                       suggestion: String,
+                       suggestionText: String,
                        registeredDate: java.sql.Timestamp
                      )

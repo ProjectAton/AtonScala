@@ -60,6 +60,8 @@ class RoomDAOImpl @Inject()
     db.run(search(id).result.headOption)
   }
 
+  private def search(id: Long) = salas.filter(_.id === id)
+
   /**
     * Elimina una room de la base de datos
     *
@@ -69,8 +71,6 @@ class RoomDAOImpl @Inject()
   override def delete(id: Long): Future[Int] = {
     db.run(search(id).delete)
   }
-
-  private def search(id: Long) = salas.filter(_.id === id)
 
   /**
     * Lista todas los salas en la base de datos
@@ -82,12 +82,12 @@ class RoomDAOImpl @Inject()
   }
 
   /**
-    * Obtiene todas las salas que coinciden con el id de laboratorio
+    * Obtiene todas las salas que coinciden con el id de laboratory
     *
     * @param id
     */
   override def getSalasPorLaboratorio(id: Long): Option[HashMap[Room, Computer]] = {
-    val salasEncontradas: Future[Seq[Room]] = db.run(salas.filter(_.idLaboratorio === id).result)
+    val salasEncontradas: Future[Seq[Room]] = db.run(salas.filter(_.laboratoryId === id).result)
     equipoDAO.buscarEquiposPorSalas(salasEncontradas, salas)
   }
 }

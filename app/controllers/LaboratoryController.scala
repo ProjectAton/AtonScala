@@ -26,7 +26,7 @@ class LaboratoryController @Inject()(laboratorioService: LaboratoryService, val 
     LaboratorioForm.form.bindFromRequest.fold(
       errorForm => Future.successful(Ok(views.html.laboratorio(errorForm, Seq.empty[Laboratory]))),
       data => {
-        Logger.debug("Petición de agregar laboratorio con la siguiente información recibida " + data)
+        Logger.debug("Petición de agregar laboratory con la siguiente información recibida " + data)
         val nuevoLaboratorio = Laboratory(0, data.nombre, data.administracion, data.ubicacion)
         laboratorioService.addLaboratorio(nuevoLaboratorio).map(res =>
           Redirect(routes.LaboratoryController.listAll()).flashing(Messages("flass.success") -> res)

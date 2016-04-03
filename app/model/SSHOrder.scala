@@ -7,7 +7,7 @@ case class SSHOrder(
                      id: Long,
                      superUser: Boolean,
                      interrupt: Boolean,
-                     SSHOrder: String,
+                     command: String,
                      result: String,
                      exitCode: Int
                    )

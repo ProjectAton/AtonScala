@@ -34,19 +34,19 @@ class LaboratoryDAOImpl @Inject()
 
 
   /**
-    * Tabla con "todos los laboratorios", similar a select * from laboratorio
+    * Tabla con "todos los laboratorios", similar a select * from laboratory
     */
   implicit val laboratorios = TableQuery[LaboratoryTable]
 
   /**
-    * Adiciona un laboratorio
+    * Adiciona un laboratory
     *
     * @param laboratorio Laboratory a agregar
     * @return String con el mensaje del result
     */
   override def add(laboratorio: Laboratory): Future[String] = {
     // Se realiza un insert y por cada insert se crea un String
-    Logger.debug("Agregando el laboratorio [" + laboratorio + "] en la base de datos.")
+    Logger.debug("Agregando el laboratory [" + laboratorio + "] en la base de datos.")
     db.run(laboratorios += laboratorio).map(res => "Laboratory agregado correctamente").recover {
       case ex: Exception => {
         Logger.error("Ocurrió un error al adicionar en la base de datos", ex)
@@ -56,14 +56,16 @@ class LaboratoryDAOImpl @Inject()
   }
 
   /**
-    * Elimina un laboratorio de la base de datos
+    * Elimina un laboratory de la base de datos
     *
-    * @param id Identificador del laboratorio
+    * @param id Identificador del laboratory
     * @return Resultado de la operación
     */
   override def delete(id: Long): Future[Int] = {
     db.run(search(id).delete)
   }
+
+  private def search(id: Long) = laboratorios.filter(_.id === id)
 
   /**
     * Lista todas los laboratorios en la base de datos
@@ -75,7 +77,7 @@ class LaboratoryDAOImpl @Inject()
   }
 
   /**
-    * Obtiene el laboratorio con todos las salas y PC asociadas
+    * Obtiene el laboratory con todos las salas y PC asociadas
     *
     * @param id
     * @return
@@ -87,15 +89,13 @@ class LaboratoryDAOImpl @Inject()
   }
 
   /**
-    * Obtiene un laboratorio según el id
+    * Obtiene un laboratory según el id
     *
-    * @param id Identificador del laboratorio
+    * @param id Identificador del laboratory
     * @return Laboratory encontrado o None si no se encontró
     */
   override def get(id: Long): Future[Option[Laboratory]] = {
-    // Se realiza un select * from laboratorio where id = $id
+    // Se realiza un select * from laboratory where id = $id
     db.run(search(id).result.headOption)
   }
-
-  private def search(id: Long) = laboratorios.filter(_.id === id)
 }

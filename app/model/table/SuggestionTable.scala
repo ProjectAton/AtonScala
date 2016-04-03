@@ -11,17 +11,17 @@ import slick.lifted.ProvenShape
   *
   * @param tag
   */
-class SuggestionTable(tag: Tag) extends Table[Suggestion](tag, "Suggestion") {
+class SuggestionTable(tag: Tag) extends Table[Suggestion](tag, "suggestionText") {
 
   // All tables need the * method with the type that it was created the table with.
   override def * : ProvenShape[Suggestion] =
-    (id, sugerencia, fecha) <>(Suggestion.tupled, Suggestion.unapply)
+    (id, suggestionText, registeredDate) <>(Suggestion.tupled, Suggestion.unapply)
 
   // Primary key
-  def id = column[Long]("sugerencia_id", O.PrimaryKey, O.AutoInc)
+  def id = column[Long]("id", O.PrimaryKey, O.AutoInc)
 
   // Other columns/attributes
-  def sugerencia = column[String]("sugerencia_sugerencia")
+  def suggestionText = column[String]("suggestion_text")
 
-  def fecha = column[Timestamp]("sugerencia_fecha")//(DateMapper.utilDateToSQLTimeStamp)
+  def registeredDate = column[Timestamp]("registered_date") //(DateMapper.utilDateToSQLTimeStamp)
 }

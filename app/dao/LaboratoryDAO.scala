@@ -16,7 +16,7 @@ import scala.concurrent.Future
 trait LaboratoryDAO {
 
   /**
-    * Obtiene el laboratorio con todos las salas y PC asociadas
+    * Obtiene el laboratory con todos las salas y PC asociadas
     *
     * @param id
     * @return
@@ -25,7 +25,7 @@ trait LaboratoryDAO {
 
 
   /**
-    * Adiciona un laboratorio
+    * Adiciona un laboratory
     *
     * @param laboratorio Laboratory a agregar
     * @return String con el mensaje del result
@@ -33,17 +33,17 @@ trait LaboratoryDAO {
   def add(laboratorio: Laboratory): Future[String]
 
   /**
-    * Obtiene un laboratorio según el id
+    * Obtiene un laboratory según el id
     *
-    * @param id Identificador del laboratorio
+    * @param id Identificador del laboratory
     * @return Laboratory encontrado o None si no se encontró
     */
   def get(id: Long): Future[Option[Laboratory]]
 
   /**
-    * Elimina un laboratorio de la base de datos
+    * Elimina un laboratory de la base de datos
     *
-    * @param id Identificador del laboratorio
+    * @param id Identificador del laboratory
     * @return Resultado de la operación
     */
   def delete(id: Long): Future[Int]

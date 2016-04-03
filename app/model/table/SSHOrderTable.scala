@@ -4,27 +4,27 @@ import model.SSHOrder
 import slick.driver.MySQLDriver.api._
 
 /**
-  * Mapeo de la tabla SSHOrder con Slick
+  * command table map with Slick
   *
   * @param tag
   */
-class SSHOrderTable(tag: Tag) extends Table[SSHOrder](tag, "SSHOrder") {
+class SSHOrderTable(tag: Tag) extends Table[SSHOrder](tag, "ssh_order") {
 
   // All tables need the * method with the type that it was created the table with.
   override def * =
-    (id, sudo, interrumpir, ordenSSH, resultado, codigoSalida) <>(SSHOrder.tupled, SSHOrder.unapply)
+    (id, superuser, interrupt, command, result, exitCode) <>(SSHOrder.tupled, SSHOrder.unapply)
 
   // Primary key
-  def id = column[Long]("orden_id", O.PrimaryKey, O.AutoInc)
+  def id = column[Long]("id", O.PrimaryKey, O.AutoInc)
 
   // Other columns/attributes
-  def sudo = column[Boolean]("orden_sudo")
+  def superuser = column[Boolean]("superuser")
 
-  def interrumpir = column[Boolean]("orden_ubicacion")
+  def interrupt = column[Boolean]("interrupt")
 
-  def ordenSSH = column[String]("orden_orden_ssh")
+  def command = column[String]("command")
 
-  def resultado = column[String]("orden_resultado")
+  def result = column[String]("result")
 
-  def codigoSalida = column[Int]("orden_codigo_salida")
+  def exitCode = column[Int]("exit_code")
 }
