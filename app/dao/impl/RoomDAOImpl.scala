@@ -32,7 +32,7 @@ class RoomDAOImpl @Inject()
 
 
   /**
-    * Tabla con "todos los salas", similar a select * from room
+    * Tabla con "todos los rooms", similar a select * from room
     */
   implicit val salas = TableQuery[RoomTable]
 
@@ -73,22 +73,22 @@ class RoomDAOImpl @Inject()
   }
 
   /**
-    * Lista todas los salas en la base de datos
+    * Lista todas los rooms en la base de datos
     *
-    * @return Todas las salas
+    * @return Todas las rooms
     */
   override def listAll: Future[Seq[Room]] = {
     db.run(salas.result)
   }
 
   /**
-    * Obtiene todas las salas que coinciden con el id de laboratory
+    * Obtiene todas las rooms que coinciden con el id de laboratory
     *
     * @param id
     */
   override def getSalasPorLaboratorio(id: Long): Option[HashMap[Room, Computer]] = {
     val salasEncontradas: Future[Seq[Room]] = db.run(salas.filter(_.laboratoryId === id).result)
-    equipoDAO.buscarEquiposPorSalas(salasEncontradas, salas)
+    equipoDAO.getComputersPerRooms(salasEncontradas, salas)
   }
 }
 

@@ -1,6 +1,6 @@
-@import model.{UserRole, UsuarioWeb}
+@import model.UserRole
 @*Plantilla de todas las páginas.*@
-@(usuario: Option[UsuarioWeb], rol: Option[UserRole], titulo: String)(contenido: Html)
+@(userName: Option[String], titulo: String)(contenido: Html)
 <html>
     <head>
         <title>@titulo - Aton Web</title>
@@ -27,7 +27,7 @@
 
     <body>
         <div class="wrapper">
-            @header(usuario)
+            @header(userName)
             <div id="container">
                 @menu("admin".equalsIgnoreCase(rol.getOrElse(UserRole(0, "")).role))
                 <div class="content">@contenido</div>

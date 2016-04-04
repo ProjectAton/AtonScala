@@ -15,27 +15,27 @@ import scala.concurrent.Future
   */
 @Singleton
 class LaboratoryServiceImpl @Inject()(laboratorioDAO: LaboratoryDAO) extends LaboratoryService {
-  override def addLaboratorio(laboratorio: Laboratory): Future[String] = {
+  override def addLaboratory(laboratorio: Laboratory): Future[String] = {
     Logger.debug("Laboratory a agregar: " + laboratorio)
     laboratorioDAO.add(laboratorio)
   }
 
-  override def deleteLaboratorio(id: Long): Future[Int] = {
+  override def deleteLaboratory(id: Long): Future[Int] = {
     Logger.debug("Laboratory a eliminar: " + id)
     laboratorioDAO.delete(id)
   }
 
-  override def listAllLaboratorios: Future[Seq[Laboratory]] = {
+  override def listAllLaboratories: Future[Seq[Laboratory]] = {
     Logger.debug("Listando todos los laboratorios...")
     laboratorioDAO.listAll
   }
 
-  override def getLaboratorio(id: Long): Future[Option[Laboratory]] = {
+  override def getLaboratory(id: Long): Future[Option[Laboratory]] = {
     Logger.debug("Laboratory a buscar: " + id)
     laboratorioDAO.get(id)
   }
 
-  override def getLaboratorioConHijos(id: Long): Future[(Option[Laboratory], Option[HashMap[Room, Set[Computer]]])] = {
+  override def getLaboratoryWithChildrenRooms(id: Long): Future[(Option[Laboratory], Option[HashMap[Room, Set[Computer]]])] = {
     Logger.debug("Laboratory a buscar con hijos: " + id)
     laboratorioDAO.getWithChildren(id)
   }

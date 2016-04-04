@@ -16,7 +16,7 @@ import scala.concurrent.Future
 trait RoomDAO {
 
   /**
-    * Obtiene todas las salas que coinciden con el id de laboratory
+    * Obtiene todas las rooms que coinciden con el id de laboratory
     *
     * @param id
     */
@@ -48,9 +48,9 @@ trait RoomDAO {
   def delete(id: Long): Future[Int]
 
   /**
-    * Lista todas las salas en la base de datos
+    * Lista todas las rooms en la base de datos
     *
-    * @return Todas las salas
+    * @return Todas las rooms
     */
   def listAll: Future[Seq[Room]]
 }

@@ -10,7 +10,7 @@ import play.api.db.slick.{DatabaseConfigProvider, HasDatabaseConfigProvider}
 import play.api.libs.concurrent.Execution.Implicits._
 import slick.driver.JdbcProfile
 
-import scala.collection.immutable.HashMap
+import scala.collection.mutable.HashMap
 import scala.concurrent.Future
 
 /**
@@ -54,8 +54,6 @@ class ComputerDAOImpl @Inject()
     db.run(search(ip).result.headOption)
   }
 
-  private def search(ip: String) = equipos.filter(_.ip === ip)
-
   /**
     * Elimina un computer de la base de datos
     *
@@ -65,6 +63,8 @@ class ComputerDAOImpl @Inject()
   override def delete(ip: String): Future[Int] = {
     db.run(search(ip).delete)
   }
+
+  private def search(ip: String) = equipos.filter(_.ip === ip)
 
   /**
     * Lista todos los equipos en la base de datos
@@ -78,15 +78,23 @@ class ComputerDAOImpl @Inject()
   /**
     * Hace un join interno en el cual se buscan los equipos de las salas
     *
-    * @param salasEncontradas
-    * @param salas
+    * @param foundRooms
+    * @param rooms
     * @return
     */
-  override def buscarEquiposPorSalas(salasEncontradas: Future[Seq[Room]], salas: TableQuery[RoomTable]): Option[HashMap[Room, Computer]] = {
-    for {
-      sala <- salasEncontradas
-      equipo <- equipos join salas
-    } ()
+  override def getComputersPerRooms(foundRooms: Future[Seq[Room]], rooms: TableQuery[RoomTable]): Option[HashMap[Room, Set[Computer]]] = {
+    val computersJoin = equipos join rooms
+    var hashMap = HashMap[Room, Set[Computer]]
+    foundRooms.map(rooms => {
+      rooms.foreach(room => {
+        val actualComputerList = Nil
+        db.run(computersJoin.filter(_._2.id == room.id).result).map(found => {
+          found.map(actualComputerList += _)
+        })
+        hashMap += (room -> actualComputerList)
+      })
+    })
+    return hashMap
   }
 
 

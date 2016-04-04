@@ -11,7 +11,7 @@ case class LoginFormData(usuario: String, password: String)
 object LoginForm {
   val form = Form(
     mapping(
-      "usuario" -> nonEmptyText(3,32),
+      "userName" -> nonEmptyText(3, 32),
       "password" -> nonEmptyText
     )(LoginFormData.apply)(LoginFormData.unapply)
   )

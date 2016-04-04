@@ -1,18 +1,17 @@
-@import model.UsuarioWeb
-@(usuario: Option[UsuarioWeb])
+@(userName: Option[String])
 <header>
     <div class="logo">
         <a href="/">Aton <span>Web</span></a>
     </div>
-    <div class="usuario">
-        @if(usuario.isDefined) {
+    <div class="userName">
+        @if(userName.isDefined) {
             <button type="button" class="btn btn-default dropdown-toggle"
             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 ${user} <span class="caret"></span>
             </button>
             <ul class="dropdown-menu dropdown-menu-right">
-                <li><a href="/admin/editar-usuario-@usuario"
-                class="flaticon-edit18"> Editar usuario</a></li>
+                <li><a href="/admin/editar-userName-@userName"
+                class="flaticon-edit18"> Editar userName</a></li>
                 <li role="separator" class="divider"></li>
                 <li><a href="/logout"
                 class="flaticon-power107"> Cerrar sesión</a></li>

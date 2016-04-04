@@ -12,13 +12,13 @@ import scala.concurrent.Future
   */
 @ImplementedBy(classOf[LaboratoryServiceImpl])
 trait LaboratoryService {
-  def addLaboratorio(laboratorio: Laboratory): Future[String]
+  def addLaboratory(laboratory: Laboratory): Future[String]
 
-  def getLaboratorio(id: Long): Future[Option[Laboratory]]
+  def getLaboratory(id: Long): Future[Option[Laboratory]]
 
-  def getLaboratorioConHijos(id: Long): Future[(Option[Laboratory], Option[HashMap[Room, Computer]])]
+  def getLaboratoryWithChildrenRooms(id: Long): Future[(Option[Laboratory], Option[HashMap[Room, Computer]])]
 
-  def deleteLaboratorio(id: Long): Future[Int]
+  def deleteLaboratory(id: Long): Future[Int]
 
-  def listAllLaboratorios: Future[Seq[Laboratory]]
+  def listAllLaboratories: Future[Seq[Laboratory]]
 }

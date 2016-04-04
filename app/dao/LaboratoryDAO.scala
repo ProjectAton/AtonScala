@@ -16,7 +16,7 @@ import scala.concurrent.Future
 trait LaboratoryDAO {
 
   /**
-    * Obtiene el laboratory con todos las salas y PC asociadas
+    * Obtiene el laboratory con todos las rooms y PC asociadas
     *
     * @param id
     * @return

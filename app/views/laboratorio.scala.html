@@ -1,24 +1,23 @@
 @import model.{Computer, Laboratory, Room}
 
 @import scala.collection.immutable.HashMap
-@(laboratorio: Laboratory, salasConEquipos: Option[HashMap[Room, Set[Computer]]])
-
+@(laboratory: Laboratory, roomsWithComputers: Option[HashMap[Room, Set[Computer]]])
 <h1>Laboratory</h1>
-@if(salasConEquipos.isDefined) {
-    @for(salaConEquipos <- salasConEquipos.get) {
+@if(roomsWithComputers.isDefined) {
+    @for(salaConEquipos <- roomsWithComputers.get) {
 
         <div class="panel panel-primary">
             <div class="panel-heading">@salaConEquipos._1.name</div>
             <div class="panel-body">
             @if(!salaConEquipos._2.isEmpty) {
                 <div class="row">
-                @for(equipo <- salaConEquipos._2) {
+                @for(computer <- roomsWithComputers._2) {
                     <div class="col-xs-2 panel-inicio">
                         <div class="panel panel-success">
-                            @if(equipo.name != "") {
-                                <div class="panel-heading flaticon-robot28">@equipo.name</div>
+                            @if(computer.name != "") {
+                                <div class="panel-heading flaticon-robot28">@computer.name</div>
                             } else {
-                                <div class="panel-heading flaticon-robot28">@equipo.ip</div>
+                                <div class="panel-heading flaticon-robot28">@computer.ip</div>
                             }
                         <div class="panel-body interior-laboratorio">
 
@@ -64,8 +63,8 @@
         <div class="panel-body">
             <div id="no-encontrado">
                 <i class="flaticon-boxes27"></i>
-                <h1>Aquí no hay salas</h1>
-                <p>Parece que no se han encontrado salas.</p>
+                <h1>Aquí no hay rooms</h1>
+                <p>Parece que no se han encontrado rooms.</p>
                 <p> Por favor dile al administrador de este problema.</p>
             </div>
         </div>
