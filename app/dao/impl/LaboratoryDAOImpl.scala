@@ -4,7 +4,7 @@ import javax.inject.Inject
 
 import com.google.inject.Singleton
 import dao.{LaboratoryDAO, RoomDAO}
-import model.table.LaboratoryTable
+import model.table.{ComputerTable, LaboratoryTable, RoomTable}
 import model.{Computer, Laboratory, Room}
 import play.Logger
 import play.api.db.slick.DatabaseConfigProvider
@@ -36,7 +36,10 @@ class LaboratoryDAOImpl @Inject()
   /**
     * Tabla con "todos los laboratorios", similar a select * from laboratory
     */
-  implicit val laboratorios = TableQuery[LaboratoryTable]
+  implicit val laboratories = TableQuery[LaboratoryTable]
+  implicit val rooms = TableQuery[RoomTable]
+  implicit val computers = TableQuery[ComputerTable]
+  implicit val computersAndRoomsTripleJoin = computers join rooms join laboratories
 
   /**
     * Adiciona un laboratory
@@ -47,7 +50,7 @@ class LaboratoryDAOImpl @Inject()
   override def add(laboratorio: Laboratory): Future[String] = {
     // Se realiza un insert y por cada insert se crea un String
     Logger.debug("Agregando el laboratory [" + laboratorio + "] en la base de datos.")
-    db.run(laboratorios += laboratorio).map(res => "Laboratory agregado correctamente").recover {
+    db.run(laboratories += laboratorio).map(res => "Laboratory agregado correctamente").recover {
       case ex: Exception => {
         Logger.error("Ocurrió un error al adicionar en la base de datos", ex)
         ex.getCause.getMessage
@@ -65,7 +68,7 @@ class LaboratoryDAOImpl @Inject()
     db.run(search(id).delete)
   }
 
-  private def search(id: Long) = laboratorios.filter(_.id === id)
+  private def search(id: Long) = laboratories.filter(_.id === id)
 
   /**
     * Lista todas los laboratorios en la base de datos
@@ -73,7 +76,7 @@ class LaboratoryDAOImpl @Inject()
     * @return Todos los laboratorios
     */
   override def listAll: Future[Seq[Laboratory]] = {
-    db.run(laboratorios.result)
+    db.run(laboratories.result)
   }
 
   /**
@@ -82,10 +85,8 @@ class LaboratoryDAOImpl @Inject()
     * @param id
     * @return
     */
-  override def getWithChildren(id: Long): Future[(Option[Laboratory], Option[HashMap[Room, Set[Computer]]])] = {
-    val laboratorio = get(id)
-    val salas = salaDAO.getSalasPorLaboratorio(id)
-    (laboratorio, salas)
+  override def getWithChildren(id: Long): Future[Seq[(Computer, Room)]] = {
+    db.run(computersAndRoomsTripleJoin.filter(_._2.id===id).map(_._1).result)
   }
 
   /**

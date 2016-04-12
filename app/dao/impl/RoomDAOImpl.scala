@@ -21,7 +21,7 @@ import scala.concurrent.Future
   */
 @Singleton
 class RoomDAOImpl @Inject()
-(dbConfigProvider: DatabaseConfigProvider, equipoDAO: ComputerDAO) extends RoomDAO {
+(dbConfigProvider: DatabaseConfigProvider) extends RoomDAO {
   /**
     * Configuración de la base de datos
     */
@@ -79,16 +79,6 @@ class RoomDAOImpl @Inject()
     */
   override def listAll: Future[Seq[Room]] = {
     db.run(salas.result)
-  }
-
-  /**
-    * Obtiene todas las rooms que coinciden con el id de laboratory
-    *
-    * @param id
-    */
-  override def getSalasPorLaboratorio(id: Long): Option[HashMap[Room, Computer]] = {
-    val salasEncontradas: Future[Seq[Room]] = db.run(salas.filter(_.laboratoryId === id).result)
-    equipoDAO.getComputersPerRooms(salasEncontradas, salas)
   }
 }
 

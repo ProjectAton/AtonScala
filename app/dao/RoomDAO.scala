@@ -15,13 +15,6 @@ import scala.concurrent.Future
 @ImplementedBy(classOf[RoomDAOImpl])
 trait RoomDAO {
 
-  /**
-    * Obtiene todas las rooms que coinciden con el id de laboratory
-    *
-    * @param id
-    */
-  def getSalasPorLaboratorio(id: Long): Option[HashMap[Room, Set[Computer]]]
-
 
   /**
     * Adiciona una room

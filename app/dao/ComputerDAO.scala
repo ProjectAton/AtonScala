@@ -18,15 +18,6 @@ import scala.concurrent.Future
 trait ComputerDAO {
 
   /**
-    * Hace un join interno en el cual se buscan los equipos de las rooms
-    *
-    * @param salasEncontradas
-    * @param salas
-    * @return
-    */
-  def getComputersPerRooms(salasEncontradas: Future[Seq[Room]], salas: TableQuery[RoomTable]): Option[HashMap[Room, Set[Computer]]]
-
-  /**
     * Adiciona un inicio
     *
     * @param equipo Computer a agregar

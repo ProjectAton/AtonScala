@@ -44,8 +44,9 @@ class LaboratoryController @Inject()(laboratorioService: LaboratoryService, val 
   }
 
   def getLaboratorio(id: Long) = Action.async {implicit request =>
-    laboratorioService.getLaboratoryWithChildrenRooms(id) map { res =>
-      Ok(views.html.inicio(usuario, rol, "Laboratory")(views.html.laboratorio(res)))
+    val laboratorio = laboratorioService.getLaboratory(id).map(x=>x.)
+    laboratorioService.getLaboratoryWithChildrenRooms(id).map.{ res =>
+      Ok(views.html.inicio(usuario, rol, "Laboratory")(views.html.laboratorio(laboratorio,res)))
     }
   }
 }

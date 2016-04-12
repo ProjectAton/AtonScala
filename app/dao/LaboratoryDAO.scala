@@ -21,7 +21,7 @@ trait LaboratoryDAO {
     * @param id
     * @return
     */
-  def getWithChildren(id: Long): Future[(Option[Laboratory], Option[HashMap[Room, Set[Computer]]])]
+  def getWithChildren(id: Long): Future[Seq[(Computer, Room)]]
 
 
   /**

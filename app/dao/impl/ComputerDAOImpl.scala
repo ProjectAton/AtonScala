@@ -21,7 +21,7 @@ import scala.concurrent.Future
   */
 @Singleton
 class ComputerDAOImpl @Inject()
-(protected val dbConfigProvider: DatabaseConfigProvider, salaDAOImpl: RoomDAOImpl) extends ComputerDAO with HasDatabaseConfigProvider[JdbcProfile] {
+(protected val dbConfigProvider: DatabaseConfigProvider) extends ComputerDAO with HasDatabaseConfigProvider[JdbcProfile] {
 
   import driver.api._
 
@@ -73,28 +73,6 @@ class ComputerDAOImpl @Inject()
     */
   override def listAll: Future[Seq[Computer]] = {
     db.run(equipos.result)
-  }
-
-  /**
-    * Hace un join interno en el cual se buscan los equipos de las salas
-    *
-    * @param foundRooms
-    * @param rooms
-    * @return
-    */
-  override def getComputersPerRooms(foundRooms: Future[Seq[Room]], rooms: TableQuery[RoomTable]): Option[HashMap[Room, Set[Computer]]] = {
-    val computersJoin = equipos join rooms
-    var hashMap = HashMap[Room, Set[Computer]]
-    foundRooms.map(rooms => {
-      rooms.foreach(room => {
-        val actualComputerList = Nil
-        db.run(computersJoin.filter(_._2.id == room.id).result).map(found => {
-          found.map(actualComputerList += _)
-        })
-        hashMap += (room -> actualComputerList)
-      })
-    })
-    return hashMap
   }
 
 

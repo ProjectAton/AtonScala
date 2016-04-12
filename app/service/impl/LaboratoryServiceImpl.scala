@@ -35,7 +35,7 @@ class LaboratoryServiceImpl @Inject()(laboratorioDAO: LaboratoryDAO) extends Lab
     laboratorioDAO.get(id)
   }
 
-  override def getLaboratoryWithChildrenRooms(id: Long): Future[(Option[Laboratory], Option[HashMap[Room, Set[Computer]]])] = {
+  override def getLaboratoryWithChildrenRooms(id: Long): Future[Seq[(Computer, Room)]] = {
     Logger.debug("Laboratory a buscar con hijos: " + id)
     laboratorioDAO.getWithChildren(id)
   }

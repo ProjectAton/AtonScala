@@ -1,7 +1,5 @@
 @import model.{Computer, Laboratory, Room}
-
-@import scala.collection.immutable.HashMap
-@(laboratory: Laboratory, roomsWithComputers: Option[HashMap[Room, Set[Computer]]])
+@(laboratory: Laboratory, roomsWithComputers: Future[Seq[(Computer, Room)]])
 <h1>Laboratory</h1>
 @if(roomsWithComputers.isDefined) {
     @for(salaConEquipos <- roomsWithComputers.get) {
