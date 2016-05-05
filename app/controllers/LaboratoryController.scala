@@ -43,10 +43,16 @@ class LaboratoryController @Inject()(laboratorioService: LaboratoryService, val 
     }
   }
 
-  def getLaboratorio(id: Long) = Action.async {implicit request =>
+  def getLaboratorio(id: Long) = UserAwareAction {implicit request =>
+    val userName = request.user match {
+      case Some(user) => user.fullName
+      case _ => "Invitado"
+    }
+
     val laboratorio = laboratorioService.getLaboratory(id).map(x=>x.)
+    Logger.debug("Petición de listar el laboratorio " + id + " respondida.")
     laboratorioService.getLaboratoryWithChildrenRooms(id).map.{ res =>
-      Ok(views.html.inicio(usuario, rol, "Laboratory")(views.html.laboratorio(laboratorio,res)))
+      Ok(views.html.inicio(usuario, "Laboratory " + laboratorio.nombre)(views.html.laboratorio(laboratorio,res)))
     }
   }
 }
